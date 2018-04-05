@@ -27,12 +27,12 @@ class Client
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=9)
+     * @ORM\Column(type="string", length=9, unique=true)
      */
     private $nif;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $address;
 
@@ -62,14 +62,14 @@ class Client
     private $email;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $created;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
-    private $updated_at;
+    private $updated;
 
     public function getId()
     {
@@ -184,26 +184,26 @@ class Client
         return $this;
     }
 
-    public function getCreatedAt(): ?string
+    public function getCreated()
     {
-        return $this->created_at;
+        return $this->created;
     }
 
-    public function setCreatedAt($created_at): self
+    public function setCreated($created): self
     {
-        $this->created_at = $created_at;
+        $this->created = $created;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?string
+    public function getUpdated()
     {
-        return $this->updatedAt;
+        return $this->updated;
     }
 
-    public function setUpdatedAt($updatedAt): self
+    public function setUpdated($updated): self
     {
-        $this->updated_at = $updatedAt;
+        $this->updated = $updated;
 
         return $this;
     }
