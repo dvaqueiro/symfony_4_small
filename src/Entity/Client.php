@@ -61,6 +61,16 @@ class Client
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $updated_at;
+
     public function getId()
     {
         return $this->id;
@@ -170,6 +180,30 @@ class Client
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt($created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt): self
+    {
+        $this->updated_at = $updatedAt;
 
         return $this;
     }
