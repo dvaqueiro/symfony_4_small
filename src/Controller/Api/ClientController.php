@@ -9,23 +9,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class ClientController extends Controller
 {
-    public function index(ClientRepository $clientRepository, SerializerInterface $serializer): Response
+    public function index(ClientRepository $clientRepository): Response
     {
         $clients = $clientRepository->findAll();
+        //TODO: Eliminar los índices en el array de clientes
         return $this->json(['status' => 1, 'clients' => $clients]);
     }
 
-    public function show(Request $request, ClientRepository $clientRepository): Response
+    public function show(Request $request, ClientRepository $clientRepository, $id): Response
     {
-        $clients = $clientRepository->findAll();
-        return $this->json(['status' => 1, 'clients' => $clients]);
+        $client = $clientRepository->findById($id);
+        return $this->json(['status' => 1, 'clients' => $client]);
     }
 
-    public function new(Request $request): Response
+    public function add(Request $request): Response
     {
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
@@ -43,11 +43,6 @@ class ClientController extends Controller
             'client' => $client,
             'form' => $form->createView(),
         ]);
-    }
-
-    public function show(Client $client): Response
-    {
-        return $this->render('client/show.html.twig', ['client' => $client]);
     }
 
     public function edit(Request $request, Client $client): Response
