@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Validator\ClientValidator;
 
 class ClientController extends Controller
 {
@@ -28,48 +29,62 @@ class ClientController extends Controller
     public function add(Request $request): Response
     {
         $client = new Client();
-        $form = $this->createForm(ClientType::class, $client);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($client);
-            $em->flush();
-
-            return $this->redirectToRoute('client_index');
-        }
-
-        return $this->render('client/new.html.twig', [
-            'client' => $client,
-            'form' => $form->createView(),
-        ]);
+        $response = $this->parseRequest($request, $client);
+        return $this->json($response);
     }
 
     public function edit(Request $request, Client $client): Response
     {
-        $form = $this->createForm(ClientType::class, $client);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('client_edit', ['id' => $client->getId()]);
-        }
-
-        return $this->render('client/edit.html.twig', [
-            'client' => $client,
-            'form' => $form->createView(),
-        ]);
+        $response = $this->parseRequest($request, $client);
+        return $this->json($response);
     }
 
     public function delete(Request $request, Client $client): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($client);
+        $em->flush();
+        $response = ['status' => 1];
+        return $this->json($response);
+    }
+
+    protected function parseRequest($request, Client $client = null): array
+    {
+        $validator = new ClientValidator();
+        $response = ['status' => 0];
+
+        if (!$validator->validate()) {
+            $response['errors'] = $validator->getErrors();
+        } else {
+            $client = $this->prepareClient($request, $client);
             $em = $this->getDoctrine()->getManager();
-            $em->remove($client);
+            $em->persist($client);
             $em->flush();
+            $response['status'] = 1;
         }
 
-        return $this->redirectToRoute('client_index');
+        return $response;
+    }
+
+    protected function prepareClient($request, $client): Client
+    {
+        $client->setFirstname($request->request->firstname);
+        $client->setLastname($request->request->lastname);
+        $client->setNif($request->request->nif);
+        $client->setAddress($request->request->address);
+        $client->setPostcode($request->request->postcode);
+        $client->setCity($request->request->city);
+        $client->setState($request->request->state);
+        $client->setCountry($request->request->country);
+        $client->setEmail($request->request->email);
+
+        $now = date('Y-m-d H:i:s');
+        $client->setUpdated($now);
+        if (!$client->getCreated) {
+            $client->setCreated($now);
+        }
+
+        return $client;
     }
 }
