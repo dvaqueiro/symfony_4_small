@@ -38,13 +38,18 @@ class ClientController extends Controller
         return $this->json($response);
     }
 
-    public function delete(Request $request, Client $client): Response
+    public function delete(Request $request, ClientRepository $clientRepository, $id): Response
     {
-        
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($client);
-        $em->flush();
-        $response = ['status' => 1];
+        $response = ['status' => 0];
+        $client = $clientRepository->findOneBy(['id' => $id]);
+        if (!$client) {
+            $response['errors'] = ['Client not found'];
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($client);
+            $em->flush();
+            $response['status'] = 1;
+        }
         return $this->json($response);
     }
 
