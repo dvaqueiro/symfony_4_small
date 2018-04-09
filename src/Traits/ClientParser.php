@@ -2,6 +2,10 @@
 
 namespace App\Traits;
 
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Client;
+use App\Validator\ClientValidator;
+
 trait ClientParser
 {
     protected function parseRequest(Request $request, Client $client = null): array
@@ -9,7 +13,7 @@ trait ClientParser
         $validator = new ClientValidator();
         $response = ['status' => 0];
 
-        if (!$validator->validate()) {
+        if (!$validator->validate($request)) {
             $response['errors'] = $validator->getErrors();
         } else {
             $client = $this->prepareClient($request, $client);
@@ -24,19 +28,19 @@ trait ClientParser
 
     protected function prepareClient($request, $client): Client
     {
-        $client->setFirstname($request->request->firstname);
-        $client->setLastname($request->request->lastname);
-        $client->setNif($request->request->nif);
-        $client->setAddress($request->request->address);
-        $client->setPostcode($request->request->postcode);
-        $client->setCity($request->request->city);
-        $client->setState($request->request->state);
-        $client->setCountry($request->request->country);
-        $client->setEmail($request->request->email);
+        $client->setFirstname($request->request->get('firstname'));
+        $client->setLastname($request->request->get('lastname'));
+        $client->setNif($request->request->get('nif'));
+        $client->setAddress($request->request->get('address'));
+        $client->setPostcode($request->request->get('postcode'));
+        $client->setCity($request->request->get('city'));
+        $client->setState($request->request->get('state'));
+        $client->setCountry($request->request->get('country'));
+        $client->setEmail($request->request->get('email'));
 
-        $now = date('Y-m-d H:i:s');
+        $now = \DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
         $client->setUpdated($now);
-        if (!$client->getCreated) {
+        if (!$client->getCreated()) {
             $client->setCreated($now);
         }
 
