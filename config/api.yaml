@@ -11,11 +11,9 @@ client_show:
         id: '\d+'
   
 client_add:
-    path: /client/{id}
+    path: /client/
     controller: App\Controller\Api\ClientController::add
     methods: [POST]
-    requirements:
-        id: '\d+'
 
 client_edit:
     path: /client/{id}
