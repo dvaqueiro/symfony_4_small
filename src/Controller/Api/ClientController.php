@@ -3,7 +3,6 @@
 namespace App\Controller\Api;
 
 use App\Entity\Client;
-use App\Form\ClientType;
 use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,5 +48,5 @@ class ClientController extends Controller
         return $this->json($response);
     }
 
-    use App\Traits\ClientParser;
+    use \App\Traits\ClientParser;
 }
