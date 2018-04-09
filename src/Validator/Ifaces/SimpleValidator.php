@@ -1,7 +1,7 @@
 <?php
 namespace App\Validator\Ifaces;
 
-interface FieldValidator
+interface SimpleValidator
 {
     public function validate($regex = null): bool;
 }

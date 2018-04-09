@@ -12,7 +12,7 @@ class NifValidator extends BasicFieldValidator implements SimpleValidator
     public function validate($regex = null): bool
     {
         $valid = false;
-        $value = preg_replace('/\s/', '', strtoupper($value));
+        $value = preg_replace('/\s/', '', strtoupper($this->value));
         $type = $this->getType($value);
         switch ($type) {
             case 'dni':

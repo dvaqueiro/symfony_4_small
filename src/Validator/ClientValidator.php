@@ -3,6 +3,7 @@ namespace App\Validator;
 
 use App\Entity\Client;
 use App\Validator\Ifaces\EntityValidator;
+use Symfony\Component\HttpFoundation\Request;
 
 class ClientValidator implements EntityValidator
 {
@@ -25,17 +26,17 @@ class ClientValidator implements EntityValidator
     {
         $this->errors = [];
         //TODO: Investigar una forma de validar el objeto en base a sus propiedades
-        foreach ($fields as $key => $constraints) {
+        foreach ($this->fields as $key => $constraints) {
             if ($request->request->has($key)) {
                 switch ($constraints['type']) {
                     case self::TYPE_INTEGER:
-                        $validator = new IntegerValidator($request->request->$key);
+                        $validator = new IntegerValidator($request->request->get($key));
                         break;
                     case self::TYPE_STRING:
-                        $validator = new StringValidator($request->request->$key);
+                        $validator = new StringValidator($request->request->get($key));
                         break;
                     case self::TYPE_NIF:
-                        $validator = new NifValidator($request->request->$key);
+                        $validator = new NifValidator($request->request->get($key));
                         break;
                     default:
                         throw new Exception('Type constraint is required when defining Fields');
@@ -56,7 +57,7 @@ class ClientValidator implements EntityValidator
         return count($this->errors) == 0;
     }
 
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
