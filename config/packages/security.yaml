@@ -1,0 +1,12 @@
+security:
+  providers:
+    basic:
+      entity:
+        class: App\Entity\User
+        property: email
+  firewalls:
+    main:
+      pattern: ^/api
+      guard:
+        authenticators:
+          - App\Security\BasicAuthenticator
