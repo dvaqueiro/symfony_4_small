@@ -66,7 +66,7 @@ class BasicAuthenticator extends AbstractGuardAuthenticator
     {
         $data = array(
             'status' => 0,
-            'errors' => ['403: Authentication Required sdf']
+            'errors' => ['403: Authentication Required']
         );
 
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
