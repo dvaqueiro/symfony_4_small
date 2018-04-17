@@ -36,12 +36,12 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserProv
         return true;
     }
 
-    public function findOneById($id): ?User
+    public function findOneById($id): ? \App\Domain\User\User
     {
         return $this->find($id);
     }
 
-    public function findOneByEmail($emal): ?User
+    public function findOneByEmail($emal): ? \App\Domain\User\User
     {
         return $this->findOneBy(['email' => $email]);
     }

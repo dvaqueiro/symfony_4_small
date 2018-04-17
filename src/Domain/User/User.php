@@ -4,7 +4,7 @@ namespace App\Domain\User;
 interface User
 {
 
-    public function getId(): ?integer;
+    public function getId(): ?int;
 
     public function getName(): ?string;
 

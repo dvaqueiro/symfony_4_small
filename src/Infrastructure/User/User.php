@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Entity;
+namespace App\Infrastructure\User;
 
 use Symfony\Component\Security\Core\User\UserInterface as ApplicationUserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,7 +38,7 @@ class User implements UserInterface, \Serializable, ApplicationUserInterface
      */
     private $password;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
