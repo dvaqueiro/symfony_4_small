@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Application\Repository;
+namespace App\Infrastructure\Client;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Domain\Client\ClientRepository;
+use App\Domain\Client\Client;
+use App\Infraestructure\Client\Client as DoctrineClient;
 
 /**
  * @method Client|null find($id, $lockMode = null, $lockVersion = null)

@@ -1,7 +1,7 @@
 <?php
 namespace App\Domain\Client;
 
-use Client;
+use App\Domain\Client\Client;
 
 interface ClientRepository
 {

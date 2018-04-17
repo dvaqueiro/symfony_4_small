@@ -4,7 +4,7 @@ namespace App\Domain\Client;
 interface Client
 {
 
-    public function getId() : ?integer;
+    public function getId() : ?int;
 
     public function getFirstname(): ?string;
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Infrastructure\Entity;
+namespace App\Infrastructure\Client;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Infrastructure\Client\Client as ClientInterface;
+use App\Domain\Client\Client as ClientInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Infrastructure\Client\DoctrineClientRepository")
  */
-class Client extends ClientInterface
+class Client implements ClientInterface
 {
     /**
      * @ORM\Id()
@@ -72,7 +72,7 @@ class Client extends ClientInterface
      */
     private $updated;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
