@@ -1,37 +1,37 @@
 client_list:
     path: /client/
-    controller: App\Controller\Api\ClientController::index
+    controller: App\Infrastructure\Controller\Api\ClientController::index
     methods: [GET]
 
 client_show:
     path: /client/{id}
-    controller: App\Controller\Api\ClientController::show
+    controller: App\Infrastructure\Controller\Api\ClientController::show
     methods: [GET]
     requirements:
         id: '\d+'
   
 client_add:
     path: /client/
-    controller: App\Controller\Api\ClientController::add
+    controller: App\Infrastructure\Controller\Api\ClientController::add
     methods: [POST]
 
 client_edit:
     path: /client/{id}
-    controller: App\Controller\Api\ClientController::edit
+    controller: App\Infrastructure\Controller\Api\ClientController::edit
     methods: [PUT, PATCH]
     requirements:
         id: '\d+'
 
 client_delete:
     path: /client/{id}
-    controller: App\Controller\Api\ClientController::delete
+    controller: App\Infrastructure\Controller\Api\ClientController::delete
     methods: [DELETE]
     requirements:
         id: '\d+'
 
 client_search:
     path: /client/{field}/{value}
-    controller: App\Controller\Api\ClientController::find
+    controller: App\Infrastructure\Controller\Api\ClientController::find
     methods: [GET]
     requirements:
         field: '[a-zA-Z]+'

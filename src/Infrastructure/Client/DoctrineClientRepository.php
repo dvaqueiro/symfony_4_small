@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repository;
+namespace App\Application\Repository;
 
-use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Domain\Client\ClientRepository;
 
 /**
  * @method Client|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +12,31 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Client[]    findAll()
  * @method Client[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ClientRepository extends ServiceEntityRepository
+class DoctrineClientRepository extends ServiceEntityRepository implements ClientRepository
 {
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Client::class);
+    }
+
+    public function findOneById($id): ?Client
+    {
+        return $this->findById($id);
+    }
+
+    public function findOneByEmail($emal): ?Client
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
+
+    public function getAll($orderBy = null, $limit = null, $offset = null) : array
+    {
+        return $this->findBy([], $orderBy, $limit, $offset);
+    }
+
+    public function getByParam($criteria, $orderBy = null, $limit = null, $offset = null) : array
+    {
+        return $this->findBy($criteria, $orderBy, $limit, $offset);
     }
 
 //    /**

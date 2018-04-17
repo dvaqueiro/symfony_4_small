@@ -1,8 +1,7 @@
 <?php
-namespace App\Validator;
+namespace App\Domain\Validator;
 
-use App\Entity\Client;
-use App\Validator\Ifaces\SimpleValidator;
+use App\Domain\Validator\Ifaces\SimpleValidator;
 
 class StringValidator extends BasicFieldValidator implements SimpleValidator
 {

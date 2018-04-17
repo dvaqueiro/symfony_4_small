@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Api;
+namespace App\Infrastructure\Controller\Api;
 
 use App\Entity\Client;
 use App\Repository\ClientRepository;
@@ -53,5 +53,5 @@ class ClientController extends Controller
         return $this->json($response);
     }
 
-    use \App\Traits\ClientParser;
+    use \App\Infrastructure\Client\ClientParser;
 }

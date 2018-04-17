@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Infrastructure\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Infrastructure\Client\Client as ClientInterface;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ * @ORM\Entity(repositoryClass="App\Infrastructure\Client\DoctrineClientRepository")
  */
-class Client
+class Client extends ClientInterface
 {
     /**
      * @ORM\Id()

@@ -1,5 +1,5 @@
 <?php
-namespace App\Validator\Ifaces;
+namespace App\Domain\Validator\Ifaces;
 
 interface SimpleValidator
 {

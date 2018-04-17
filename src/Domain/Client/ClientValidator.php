@@ -1,8 +1,7 @@
 <?php
-namespace App\Validator;
+namespace App\Domain\Client;
 
-use App\Entity\Client;
-use App\Validator\Ifaces\EntityValidator;
+use App\Domain\Validator\Ifaces\EntityValidator;
 use Symfony\Component\HttpFoundation\Request;
 
 class ClientValidator implements EntityValidator
@@ -22,12 +21,12 @@ class ClientValidator implements EntityValidator
 
     protected $errors = [];
 
-    public function validate(Request $request): bool
+    public function validate(array $fields): bool
     {
         $this->errors = [];
         //TODO: Investigar una forma de validar el objeto en base a sus propiedades
         foreach ($this->fields as $key => $constraints) {
-            if ($request->request->has($key)) {
+            if (isset($fields[$key])) {
                 switch ($constraints['type']) {
                     case self::TYPE_INTEGER:
                         $validator = new IntegerValidator($request->request->get($key));

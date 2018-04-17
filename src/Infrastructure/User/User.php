@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Entity;
+namespace App\Application\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface as ApplicationUserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Domain\User\User as UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DoctrineUserRepository")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable, ApplicationUserInterface
 {
     /**
      * @ORM\Id()

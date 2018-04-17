@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Traits;
+namespace App\Infrastructure\Client;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Client;
-use App\Validator\ClientValidator;
+use App\Domain\Client\ClientValidator;
 
 trait ClientParser
 {
@@ -13,7 +12,7 @@ trait ClientParser
         $validator = new ClientValidator();
         $response = ['status' => 0];
 
-        if (!$validator->validate($request)) {
+        if (!$validator->validate($request->request->all())) {
             $response['errors'] = $validator->getErrors();
         } else {
             $client = $this->prepareClient($request, $client);
@@ -26,7 +25,7 @@ trait ClientParser
         return $response;
     }
 
-    protected function prepareClient($request, $client): Client
+    protected function prepareClient(Request $request, $client): Client
     {
         $client->setFirstname($request->request->get('firstname'));
         $client->setLastname($request->request->get('lastname'));

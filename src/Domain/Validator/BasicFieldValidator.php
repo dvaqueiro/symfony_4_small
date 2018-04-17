@@ -1,5 +1,5 @@
 <?php
-namespace App\Validator;
+namespace App\Domain\Validator;
 
 abstract class BasicFieldValidator
 {

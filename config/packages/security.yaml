@@ -9,4 +9,4 @@ security:
       pattern: ^/api
       guard:
         authenticators:
-          - App\Security\BasicAuthenticator
+          - App\Infrastructure\Security\BasicAuthenticator

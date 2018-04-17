@@ -1,7 +1,7 @@
 <?php
-namespace App\Validator;
+namespace App\Domain\Validator;
 
-use App\Validator\Ifaces\SimpleValidator;
+use App\Domain\Validator\Ifaces\SimpleValidator;
 
 class NifValidator extends BasicFieldValidator implements SimpleValidator
 {

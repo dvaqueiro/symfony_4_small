@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Validator\Ifaces;
-
-use Symfony\Component\HttpFoundation\Request;
+namespace App\Domain\Validator\Ifaces;
 
 interface EntityValidator
 {
@@ -11,6 +9,6 @@ interface EntityValidator
     const TYPE_NIF = 'nif';
     const TYPE_DATETIME = 'datetime';
 
-    public function validate(Request $request): bool;
+    public function validate(array $fields): bool;
     public function getErrors(): array;
 }

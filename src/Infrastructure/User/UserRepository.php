@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\User;
 
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Domain\User\UserRepository;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements UserProviderInterface
+class DoctrineUserRepository extends ServiceEntityRepository implements UserProviderInterface, UserRepository
 {
     public function __construct(RegistryInterface $registry)
     {
@@ -34,6 +34,16 @@ class UserRepository extends ServiceEntityRepository implements UserProviderInte
     public function supportsClass($class)
     {
         return true;
+    }
+
+    public function findOneById($id): ?User
+    {
+        return $this->find($id);
+    }
+
+    public function findOneByEmail($emal): ?User
+    {
+        return $this->findOneBy(['email' => $email]);
     }
 
 //    /**
