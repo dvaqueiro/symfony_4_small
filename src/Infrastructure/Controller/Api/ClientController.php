@@ -2,13 +2,13 @@
 
 namespace App\Infrastructure\Controller\Api;
 
-use App\Entity\Client;
-use App\Repository\ClientRepository;
+use App\Domain\Client\Client;
+use App\Domain\Client\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Validator\ClientValidator;
+use App\Domain\Validator\Client\ClientValidator;
 
 class ClientController extends Controller
 {
